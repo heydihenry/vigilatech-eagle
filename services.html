@@ -8,7 +8,104 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 <style>
+  .top-service-content .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 12px;
+  }
+
+  .top-service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .top-service-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .top-service-list li i {
+    width: 20px; height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-size: 14px;
+  }
+
+  /* ===== PREGUNTAS FRECUENTES ===== */
+  .faq {
+    padding: 80px 0;
+    background: var(--color-bg-alt);
+  }
+  .faq-list {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .faq-question:hover { background: #f8fafc; }
+  .faq-question .icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--color-bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--color-accent);
+    transition: transform 0.3s, background 0.2s;
+  }
+  .faq-item.open .faq-question .icon {
+    transform: rotate(45deg);
+    background: var(--color-accent);
+    color: #fff;
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .faq-item.open .faq-answer { max-height: 300px; }
+  .faq-answer p {
+    padding: 0 24px 22px;
+    font-size: 13.5px;
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+</style>
+<!-- <style>
   /* ===== RESET Y VARIABLES ===== */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -491,68 +588,7 @@
   }
   .blog-mini .read-more { font-size: 12.5px; }
 
-  /* ===== PREGUNTAS FRECUENTES ===== */
-  .faq {
-    padding: 80px 0;
-    background: var(--color-bg-alt);
-  }
-  .faq-list {
-    max-width: 860px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .faq-item {
-    background: #fff;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-  }
-  .faq-question {
-    width: 100%;
-    background: transparent;
-    padding: 20px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-text);
-    text-align: left;
-    transition: background 0.2s;
-  }
-  .faq-question:hover { background: #f8fafc; }
-  .faq-question .icon {
-    flex-shrink: 0;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--color-bg-alt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    color: var(--color-accent);
-    transition: transform 0.3s, background 0.2s;
-  }
-  .faq-item.open .faq-question .icon {
-    transform: rotate(45deg);
-    background: var(--color-accent);
-    color: #fff;
-  }
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-  }
-  .faq-item.open .faq-answer { max-height: 300px; }
-  .faq-answer p {
-    padding: 0 24px 22px;
-    font-size: 13.5px;
-    color: var(--color-text-light);
-    line-height: 1.7;
-  }
+  
 
   /* ===== CTA FINAL ===== */
   .cta-final {
@@ -662,25 +698,9 @@
     .blog-mini { grid-template-columns: 1fr; }
     .blog-mini .blog-img { height: 160px; }
   }
-</style>
+</style> -->
 </head>
 <body>
-
-<!-- ===== TOP BAR (CONTACTO) ===== -->
-<div class="topbar">
-  <div class="container topbar-inner">
-    <ul class="topbar-contact">
-      <li><i class="fa-solid fa-phone" aria-hidden="true"></i> +534567888</li>
-      <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> ejemplo@correo.com</li>
-    </ul>
-    <div class="topbar-social" aria-label="Redes sociales">
-      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-    </div>
-  </div>
-</div>
-
 <!-- ===== HEADER / NAVBAR ===== -->
 <header class="header">
   <div class="container header-inner">
@@ -690,15 +710,20 @@
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
-      <a href="#">Inicio</a>
-      <a href="#" class="active">Servicios</a>
-      <a href="#">Contacto</a>
-      <a href="#">Sobre nosotros</a>
-      <a href="#">Blog</a>
+      <a href="index.html">Inicio</a>
+      <a href="services.html" class="active">Servicios</a>
+      <a href="contact.html">Contactos</a>
+      <a href="about-us.html">Sobre nosotros</a>
+      <a href="blog.html">Blog</a>
     </nav>
 
     <div class="nav-actions">
-      <a href="#" class="btn btn-primary">Crear mi cuenta</a>
+      <div class="social-top" aria-label="Redes sociales">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
     </div>
   </div>
 </header>
@@ -706,29 +731,29 @@
 <main>
 
 <!-- ===== SECCIÓN HERO SERVICIOS ===== -->
-<section class="hero-services" aria-labelledby="hero-services-title">
-  <div class="hero-services-inner">
-    <div class="hero-services-image">
+<section class="hero-services solutions" aria-labelledby="hero-services-title">
+  <div class="hero-services-inner solutions-inner">
+    <div class="hero-services-image solutions-image">
       <!-- Placeholder: reemplazar con imagen real del hero de servicios -->
       <img src="https://placehold.co/800x600?text=Hero+Servicios" alt="Sistema de seguridad electrónica instalado en una empresa">
     </div>
-    <div class="hero-services-content">
+    <div class="hero-services-content solutions-content">
       <h1 id="hero-services-title">Servicios de seguridad electrónica para empresas y negocios</h1>
       <p>Diseñamos, instalamos y mantenemos sistemas de videovigilancia, control de acceso y redes, con proyectos técnicos personalizados y garantía profesional.</p>
-      <a href="#" class="btn btn-dark">Solicitar diagnóstico técnico</a>
+      <a href="#" class="btn btn-primary">Solicitar diagnóstico técnico</a>
     </div>
   </div>
 </section>
 
 <!-- ===== SECCIÓN SOLUCIONES DISEÑADAS POR INGENIEROS ===== -->
-<section class="engineering" aria-labelledby="engineering-title">
-  <div class="container engineering-inner">
-    <div class="engineering-content">
+<section class="engineering solutions" aria-labelledby="engineering-title">
+  <div class="container engineering-inner solutions-inner">
+    <div class="engineering-content solutions-content">
       <h2 id="engineering-title">Soluciones diseñadas por ingenieros, no instalaciones improvisadas</h2>
       <p>En VigilanTech no vendemos cámaras por vender. Estudiamos su inmueble, analizamos sus necesidades y diseñamos un proyecto técnico para que invierta únicamente en lo que realmente necesita.</p>
       <p>Nuestro servicio está diseñado para empresas y negocios, oficinas, clínicas, hoteles, almacenes y propietarios que valoran la calidad, la garantía y el soporte posterior.</p>
     </div>
-    <div class="engineering-image">
+    <div class="engineering-image solutions-image">
       <!-- Placeholder: reemplazar con imagen real de ingeniería -->
       <img src="https://placehold.co/600x500?text=Ingeniería+aplicada" alt="Ingenieros diseñando un proyecto de seguridad">
     </div>
@@ -736,77 +761,78 @@
 </section>
 
 <!-- ===== SECCIÓN SERVICIOS INSTALACIÓN (GRID 3x2) ===== -->
-<section class="install-services" aria-labelledby="install-title">
+<section class="install-services services" aria-labelledby="install-title">
   <div class="container">
     <h2 id="install-title" class="section-title">Instalación y configuración de sistemas de seguridad</h2>
     <p class="section-subtitle">Instalamos y configuramos cada equipo bajo criterios de ingeniería, asegurando que todo el sistema funcione de forma integrada y confiable.</p>
 
-    <div class="install-grid">
-      <!-- Fila 1 -->
-      <article class="install-card">
+    <div class="install-grid services-grid">
+
+      <article class="service-card">
         <div class="card-img">
-          <img src="https://placehold.co/400x300?text=Cámaras+IP" alt="Cámaras de seguridad IP y analógicas">
+          <img src="images/tecnico instalanco camaras de seguridad.jfif" alt="Instalación de cámaras de seguridad">
         </div>
         <div class="card-body">
           <h3>Cámaras de seguridad IP y analógicas</h3>
           <p>Vigilancia en tiempo real con grabación local y monitoreo remoto desde su móvil o PC.</p>
-          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+          <a href="#" class="btn btn-secondary">Solicitar ahora</a>
         </div>
       </article>
 
-      <article class="install-card">
+
+      <article class="install-card service-card">
         <div class="card-img">
           <img src="https://placehold.co/400x300?text=DVR+/+NVR" alt="Configuración de DVR y NVR">
         </div>
         <div class="card-body">
           <h3>DVR / NVR</h3>
           <p>Configuración de grabadores digitales y de red para almacenar y gestionar sus grabaciones.</p>
-          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+          <a href="#" class="btn btn-secondary">Solicitar ahora</a>
         </div>
       </article>
 
-      <article class="install-card">
+      <article class="install-card service-card">
         <div class="card-img">
           <img src="https://placehold.co/400x300?text=Videoporteros" alt="Videoporteros inteligentes">
         </div>
         <div class="card-body">
           <h3>Videoporteros inteligentes</h3>
           <p>Sistemas de video y audio bidireccional para controlar el acceso a su negocio o residencia.</p>
-          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+          <a href="#" class="btn btn-secondary">Solicitar ahora</a>
         </div>
       </article>
 
       <!-- Fila 2 -->
-      <article class="install-card">
+      <article class="install-card service-card">
         <div class="card-img">
           <img src="https://placehold.co/400x300?text=Control+de+acceso" alt="Sistemas de control de acceso">
         </div>
         <div class="card-body">
           <h3>Control de acceso</h3>
           <p>Gestión de entradas y salidas para empleados, visitantes y áreas restringidas.</p>
-          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+          <a href="#" class="btn btn-secondary">Solicitar ahora</a>
         </div>
       </article>
 
-      <article class="install-card">
+      <article class="install-card service-card">
         <div class="card-img">
           <img src="https://placehold.co/400x300?text=Configuración+remota" alt="Configuración remota de sistemas">
         </div>
         <div class="card-body">
           <h3>Configuración remota</h3>
           <p>Acceso seguro a sus cámaras y sistemas desde cualquier lugar del mundo.</p>
-          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+          <a href="#" class="btn btn-secondary">Solicitar ahora</a>
         </div>
       </article>
 
-      <article class="install-card">
+      <article class="install-card service-card">
         <div class="card-img">
           <img src="https://placehold.co/400x300?text=Mantenimiento+y+soporte" alt="Mantenimiento y soporte técnico">
         </div>
         <div class="card-body">
           <h3>Mantenimiento y soporte</h3>
           <p>Seguimos a tu lado después de la instalación para que su sistema funcione correctamente.</p>
-          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+          <a href="#" class="btn btn-secondary">Solicitar ahora</a>
         </div>
       </article>
     </div>
@@ -814,13 +840,13 @@
 </section>
 
 <!-- ===== SECCIÓN SERVICIO MÁS SOLICITADO ===== -->
-<section class="top-service" aria-labelledby="top-service-title">
-  <div class="container top-service-inner">
-    <div class="top-service-image">
+<section class="top-service solutions" aria-labelledby="top-service-title">
+  <div class="container top-service-inner solutions-inner">
+    <div class="top-service-image solutions-image">
       <!-- Placeholder: reemplazar con imagen real de cámaras de seguridad -->
       <img src="https://placehold.co/600x600?text=Cámaras+de+seguridad" alt="Cámaras de seguridad instaladas en un negocio">
     </div>
-    <div class="top-service-content">
+    <div class="top-service-content solutions-content">
       <span class="badge">Servicio más solicitado</span>
       <h2 id="top-service-title">Cámaras de seguridad</h2>
       <p>Protege tu empresa y mantén todo bajo control, incluso cuando estás fuera.</p>
@@ -832,45 +858,45 @@
         <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Soporte técnico</li>
       </ul>
 
-      <a href="#" class="btn btn-dark">Solicitar instalación</a>
+      <a href="#" class="btn btn-primary">Solicitar instalación</a>
     </div>
   </div>
 </section>
 
 <!-- ===== SECCIÓN ¿NO SABES QUÉ NECESITAS? ===== -->
-<section class="need-help" aria-labelledby="need-help-title">
-  <div class="container need-help-inner">
-    <div class="need-help-image">
+<section class="need-help how-we-work" aria-labelledby="need-help-title">
+  <div class="container need-help-inner how-inner">
+    <div class="need-help-image how-image">
       <!-- Placeholder: reemplazar con imagen real de asesoría -->
       <img src="https://placehold.co/600x600?text=Asesoría+personalizada" alt="Asesoría para elegir el sistema de seguridad adecuado">
     </div>
-    <div class="need-help-content">
+    <div class="need-help-content how-content">
       <h2 id="need-help-title">¿No sabes que necesitas?</h2>
       <p>Te ayudamos a encontrar la solución adecuada.</p>
 
-      <div class="need-steps">
-        <div class="need-step">
+      <div class="need-steps how-steps">
+        <div class="how-step">
           <div class="step-num">1</div>
           <div>
             <h4>Elige el servicio que necesitas</h4>
             <p>Selecciona el tipo de solución que buscas: cámaras, alarmas, sensores u otros dispositivos.</p>
           </div>
         </div>
-        <div class="need-step">
+        <div class="need-step how-step">
           <div class="step-num">2</div>
           <div>
             <h4>Cuéntanos sobre tu hogar</h4>
             <p>Indica los detalles de tu espacio, necesidades y cualquier requerimiento especial.</p>
           </div>
         </div>
-        <div class="need-step">
+        <div class="need-step how-step">
           <div class="step-num">3</div>
           <div>
             <h4>Revisa y envía tu solicitud</h4>
             <p>Verifica que tus datos sean correctos y envía la solicitud para que podamos contactarte.</p>
           </div>
         </div>
-        <div class="need-step">
+        <div class="need-step how-step">
           <div class="step-num">4</div>
           <div>
             <h4>Recibe tu propuesta personalizada</h4>
@@ -879,7 +905,7 @@
         </div>
       </div>
 
-      <a href="#" class="btn btn-dark">Solicitar evaluación</a>
+      <a href="#" class="btn btn-primary">Solicitar evaluación</a>
     </div>
   </div>
 </section>
@@ -998,7 +1024,7 @@
   <div class="container">
     <h2 id="cta-title">La tranquilidad de tu hogar comienza con un primer paso</h2>
     <p>Cuéntanos qué necesitas y te ayudaremos a encontrar la solución de seguridad adecuada para tu hogar.</p>
-    <a href="#" class="btn btn-dark">Quiero proteger mi hogar</a>
+    <a href="#" class="btn btn-white">Quiero proteger mi hogar</a>
   </div>
 </section>
 
@@ -1060,7 +1086,7 @@
       <div class="footer-col">
         <h4>¿Tienes duda?</h4>
         <p>Estamos aquí para ayudarte.</p>
-        <a href="#" class="btn btn-primary" style="padding:10px 22px;font-size:13px;">Contactarnos <i class="fa-solid fa-arrow-right" style="margin-left:4px;font-size:11px;"></i></a>
+        <a href="#" class="btn btn-primary" style="padding:10px 22px;font-size:13px;">Contáctanos <i class="fa-solid fa-arrow-right" style="margin-left:4px;font-size:11px;"></i></a>
       </div>
     </div>
 
