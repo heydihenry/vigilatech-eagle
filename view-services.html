@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VigilanTech - Cámaras de seguridad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  /* ===== RESET Y VARIABLES ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --color-primary: #1e3a8a;
+    --color-primary-dark: #172554;
+    --color-accent: #2563eb;
+    --color-accent-light: #3b82f6;
+    --color-blue-section: #2563eb;
+    --color-text: #1f2937;
+    --color-text-light: #6b7280;
+    --color-bg: #ffffff;
+    --color-bg-alt: #f9fafb;
+    --color-border: #e5e7eb;
+    --color-dark: #0f172a;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  button { font-family: inherit; cursor: pointer; border: none; }
+
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+  .btn-primary { background: var(--color-accent); color: #fff; }
+  .btn-primary:hover { background: var(--color-primary); }
+  .btn-dark { background: #111827; color: #fff; }
+  .btn-dark:hover { background: #000; }
+  .btn-outline-dark {
+    background: transparent;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-border);
+  }
+  .btn-outline-dark:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  .btn-white { background: #fff; color: var(--color-accent); }
+  .btn-white:hover { background: #f1f5f9; }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--color-text-light);
+    max-width: 640px;
+    margin: 0 auto 48px;
+    font-size: 15px;
+  }
+
+  /* ===== TOP BAR ===== */
+  .topbar {
+    background: var(--color-dark);
+    color: #cbd5e1;
+    font-size: 12.5px;
+    padding: 8px 0;
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .topbar-contact {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .topbar-contact li { display: flex; align-items: center; gap: 6px; }
+  .topbar-contact i { color: var(--color-accent-light); }
+  .topbar-social { display: flex; gap: 12px; }
+  .topbar-social a { color: #94a3b8; transition: color 0.2s; }
+  .topbar-social a:hover { color: #fff; }
+
+  /* ===== HEADER / NAVBAR ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--color-primary);
+  }
+  .logo i { color: var(--color-accent); font-size: 22px; }
+  .logo span { color: var(--color-text); font-weight: 400; font-size: 13px; }
+
+  .nav { display: flex; align-items: center; gap: 32px; }
+  .nav a {
+    font-size: 14px;
+    color: var(--color-text-light);
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav a:hover, .nav a.active { color: var(--color-accent); }
+  .nav a.active { font-weight: 600; }
+  .nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0; right: 0;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 2px;
+  }
+
+  /* ===== HERO SERVICIO ===== */
+  .service-hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #fff;
+    padding: 80px 0;
+  }
+  .service-hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .service-hero-content h1 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .service-hero-content h2 {
+    font-size: 20px;
+    font-weight: 500;
+    opacity: 0.92;
+    margin-bottom: 20px;
+  }
+  .service-hero-content p {
+    font-size: 15px;
+    opacity: 0.9;
+    margin-bottom: 32px;
+    max-width: 500px;
+    line-height: 1.65;
+  }
+  .service-hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+  .service-hero-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  }
+  .service-hero-image img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+  }
+
+  /* ===== BENEFICIOS (3 CARDS GRISES) ===== */
+  .benefits {
+    padding: 80px 0;
+    background: #fff;
+  }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .benefit-card {
+    background: #e5e7eb;
+    border-radius: var(--radius);
+    padding: 40px 28px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .benefit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .benefit-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d1d5db;
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    font-size: 28px;
+  }
+  .benefit-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color-text);
+  }
+  .benefit-card p {
+    font-size: 13.5px;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+
+  /* ===== ¿QUÉ INCLUYE NUESTRO SERVICIO? ===== */
+  .includes {
+    padding: 80px 0;
+    background: var(--color-bg-alt);
+  }
+  .includes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 48px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .include-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .include-item .dot {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #374151;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .include-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--color-text);
+  }
+  .include-item p {
+    font-size: 13px;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+
+  /* ===== TIPOS DE CÁMARAS ===== */
+  .camera-types {
+    padding: 80px 0;
+    background: #fff;
+  }
+  .camera-types-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .camera-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .camera-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .camera-card .card-img {
+    height: 200px;
+    overflow: hidden;
+    background: #e5e7eb;
+  }
+  .camera-card .card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .camera-card .card-body {
+    padding: 20px;
+    text-align: center;
+  }
+  .camera-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  /* ===== PROCESO (PASOS) ===== */
+  .process {
+    padding: 80px 0;
+    background: var(--color-bg-alt);
+  }
+  .process-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 16px;
+  }
+  .process-line::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 8%;
+    right: 8%;
+    height: 2px;
+    background: var(--color-border);
+    z-index: 0;
+  }
+  .process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+  .process-step .dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #374151;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    border: 3px solid var(--color-bg-alt);
+    box-shadow: 0 0 0 2px var(--color-border);
+  }
+  .process-step p {
+    font-size: 12.5px;
+    color: var(--color-text-light);
+    line-height: 1.55;
+    max-width: 220px;
+  }
+
+  /* ===== PREGUNTAS FRECUENTES ===== */
+  .faq {
+    padding: 80px 0;
+    background: #fff;
+  }
+  .faq-list {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .faq-question:hover { background: #f8fafc; }
+  .faq-question .icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--color-bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--color-accent);
+    transition: transform 0.3s, background 0.2s;
+  }
+  .faq-item.open .faq-question .icon {
+    transform: rotate(45deg);
+    background: var(--color-accent);
+    color: #fff;
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .faq-item.open .faq-answer { max-height: 300px; }
+  .faq-answer p {
+    padding: 0 24px 22px;
+    font-size: 13.5px;
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+
+  /* ===== CTA FINAL ===== */
+  .cta-final {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #fff;
+    padding: 70px 0;
+    text-align: center;
+  }
+  .cta-final h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--color-dark);
+    color: #cbd5e1;
+    padding: 60px 0 0;
+    font-size: 13px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr) 1.2fr;
+    gap: 32px;
+    padding-bottom: 40px;
+  }
+  .footer-brand .logo { color: #fff; margin-bottom: 14px; }
+  .footer-brand .logo i { color: var(--color-accent-light); }
+  .footer-brand p { font-size: 12.5px; line-height: 1.6; margin-bottom: 16px; opacity: 0.8; }
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a {
+    width: 34px; height: 34px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    transition: background 0.2s;
+  }
+  .footer-social a:hover { background: var(--color-accent); color: #fff; }
+
+  .footer-col h4 {
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { display: flex; flex-direction: column; gap: 9px; }
+  .footer-col a {
+    font-size: 12.5px;
+    color: #94a3b8;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-col p { font-size: 12.5px; color: #94a3b8; margin-bottom: 14px; line-height: 1.55; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+  }
+  .footer-bottom a { color: #94a3b8; margin: 0 4px; }
+  .footer-bottom a:hover { color: #fff; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .footer-grid { grid-template-columns: repeat(3, 1fr); }
+    .benefits-grid { gap: 20px; }
+  }
+  @media (max-width: 768px) {
+    .nav { display: none; }
+    .topbar-inner { justify-content: center; }
+    .service-hero { padding: 50px 0; }
+    .service-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+    .service-hero-content h1 { font-size: 28px; }
+    .service-hero-content h2 { font-size: 17px; }
+    .service-hero-image img { height: 260px; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .includes-grid { grid-template-columns: 1fr; gap: 24px; }
+    .camera-types-grid { grid-template-columns: 1fr; }
+    .process-line { flex-direction: column; gap: 28px; }
+    .process-line::before { display: none; }
+    .process-step p { max-width: 320px; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-title { font-size: 22px; }
+    .cta-final h2 { font-size: 22px; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <ul class="topbar-contact">
+      <li><i class="fa-solid fa-phone" aria-hidden="true"></i> +534567888</li>
+      <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> ejemplo@correo.com</li>
+    </ul>
+    <div class="topbar-social" aria-label="Redes sociales">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER / NAVBAR ===== -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo" aria-label="VigilanTech inicio">
+      <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+      <span>VigilanTech</span>
+    </a>
+
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#">Inicio</a>
+      <a href="#" class="active">Servicios</a>
+      <a href="#">Contacto</a>
+      <a href="#">Sobre nosotros</a>
+      <a href="#">Blog</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="#" class="btn btn-primary">Crear mi cuenta</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== SECCIÓN HERO SERVICIO ===== -->
+<section class="service-hero" aria-labelledby="service-hero-title">
+  <div class="container service-hero-inner">
+    <div class="service-hero-content">
+      <h1 id="service-hero-title">Cámaras de seguridad</h1>
+      <h2>Vigila tu hogar desde cualquier lugar</h2>
+      <p>Instalamos y configuramos sistemas de cámaras adaptados a las características de tu hogar, para que puedas mantener tus espacios bajo control estés donde estés.</p>
+      <div class="service-hero-buttons">
+        <a href="#" class="btn btn-dark">Solicitar evaluación</a>
+        <a href="#" class="btn btn-white">Conocer cómo funciona</a>
+      </div>
+    </div>
+    <div class="service-hero-image">
+      <!-- Placeholder: reemplazar con imagen real de cámaras -->
+      <img src="https://placehold.co/700x500?text=Cámaras+de+seguridad" alt="Cámaras de seguridad instaladas en un hogar">
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN BENEFICIOS ===== -->
+<section class="benefits" aria-label="Beneficios del servicio">
+  <div class="container">
+    <div class="benefits-grid">
+      <article class="benefit-card">
+        <div class="benefit-icon"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i></div>
+        <h3>Cobertura estratégica</h3>
+        <p>Ubicamos las cámaras pensando en tus espacios</p>
+      </article>
+      <article class="benefit-card">
+        <div class="benefit-icon"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i></div>
+        <h3>Acceso desde cualquier lugar</h3>
+        <p>Consulta tus cámaras desde tus dispositivos</p>
+      </article>
+      <article class="benefit-card">
+        <div class="benefit-icon"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
+        <h3>Instalación profesional</h3>
+        <p>Configuramos cada dispositivo según tus necesidades</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN ¿QUÉ INCLUYE NUESTRO SERVICIO? ===== -->
+<section class="includes" aria-labelledby="includes-title">
+  <div class="container">
+    <h2 id="includes-title" class="section-title" style="margin-bottom: 48px;">¿Qué incluye nuestro servicio?</h2>
+
+    <div class="includes-grid">
+      <div class="include-item">
+        <div class="dot"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></div>
+        <div>
+          <h4>Evaluación del espacio</h4>
+          <p>Configuramos las cámaras y sus funciones principales.</p>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="dot"><i class="fa-solid fa-video" aria-hidden="true"></i></div>
+        <div>
+          <h4>Instalación de cámaras</h4>
+          <p>Te ayudamos a conectar el sistema con los dispositivos compatibles.</p>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="dot"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+        <div>
+          <h4>Orientación al cliente</h4>
+          <p>Te explicamos cómo utilizar y aprovechar tu sistema.</p>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="dot"><i class="fa-solid fa-headset" aria-hidden="true"></i></div>
+        <div>
+          <h4>Soporte técnico</h4>
+          <p>Te acompañamos después de la instalación cuando necesites ayuda.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN TIPOS DE CÁMARAS ===== -->
+<section class="camera-types" aria-label="Tipos de cámaras">
+  <div class="container">
+    <div class="camera-types-grid">
+      <article class="camera-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Cámaras+interiores" alt="Cámaras interiores">
+        </div>
+        <div class="card-body">
+          <h3>Cámaras interiores</h3>
+        </div>
+      </article>
+      <article class="camera-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Cámaras+exteriores" alt="Cámaras exteriores">
+        </div>
+        <div class="card-body">
+          <h3>Cámaras exteriores</h3>
+        </div>
+      </article>
+      <article class="camera-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Sistemas+conectados" alt="Sistemas conectados">
+        </div>
+        <div class="card-body">
+          <h3>Sistemas conectados</h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN PROCESO ===== -->
+<section class="process" aria-labelledby="process-title">
+  <div class="container">
+    <h2 id="process-title" class="section-title">Te ayudamos a encontrar la solución adecuada.</h2>
+    <div style="height: 32px;"></div>
+
+    <div class="process-line">
+      <div class="process-step">
+        <div class="dot">1</div>
+        <p>Conocemos tu hogar y entendemos qué necesitas proteger.</p>
+      </div>
+      <div class="process-step">
+        <div class="dot">2</div>
+        <p>Analizamos el espacio y determinamos qué soluciones pueden funcionar mejor.</p>
+      </div>
+      <div class="process-step">
+        <div class="dot">3</div>
+        <p>Configuramos e instalamos los dispositivos de forma profesional.</p>
+      </div>
+      <div class="process-step">
+        <div class="dot">4</div>
+        <p>Seguimos disponibles para ayudarte después de la instalación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN PREGUNTAS FRECUENTES ===== -->
+<section class="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <h2 id="faq-title" class="section-title">Preguntas frecuentes sobre cámaras de seguridad</h2>
+    <p class="section-subtitle">Resolvemos las dudas más comunes sobre nuestro servicio profesional.</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Puedo ver las cámaras desde mi teléfono?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Sí. Configuramos el acceso remoto para que puedas ver tus cámaras en tiempo real desde tu móvil o PC, estés donde estés.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Puedo controlar las cámaras desde mi teléfono?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Sí. Además de verlas, puedes controlar funciones como el zoom, la grabación o las alertas directamente desde tu dispositivo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Puedo instalar cámaras dentro y fuera de mi hogar?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Por supuesto. Trabajamos con cámaras interiores y exteriores, y te asesoramos sobre la mejor combinación según tus necesidades.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Puedo ampliar el sistema mas adelante?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Sí. Diseñamos el sistema pensando en el futuro, para que puedas añadir más cámaras u otros dispositivos sin complicaciones.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN CTA FINAL ===== -->
+<section class="cta-final" aria-labelledby="cta-title">
+  <div class="container">
+    <h2 id="cta-title">¿Listo para mejorar la seguridad de tu hogar?</h2>
+    <a href="#" class="btn btn-dark">Solicitar evaluación</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Marca -->
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <span>VigilanTech</span>
+        </a>
+        <p>Seguridad inteligente para tu hogar, instalada por profesionales.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Servicios -->
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#">Instalación de videocámaras</a></li>
+          <li><a href="#">Sistemas de alarma</a></li>
+          <li><a href="#">Sensores inteligentes</a></li>
+          <li><a href="#">Control de acceso</a></li>
+          <li><a href="#">Configuración de dispositivos</a></li>
+          <li><a href="#">Mantenimiento y soporte</a></li>
+        </ul>
+      </div>
+
+      <!-- Temas más destacados -->
+      <div class="footer-col">
+        <h4>Temas más destacados</h4>
+        <ul>
+          <li><a href="#">Sobre nosotros</a></li>
+          <li><a href="#">Cómo funciona</a></li>
+          <li><a href="#">Evaluación de seguridad</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+
+      <!-- Necesitas ayuda -->
+      <div class="footer-col">
+        <h4>¿Necesitas ayuda?</h4>
+        <ul>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Soporte técnico</a></li>
+          <li><a href="#">Solicitar evaluación</a></li>
+        </ul>
+      </div>
+
+      <!-- Tienes duda -->
+      <div class="footer-col">
+        <h4>¿Tienes duda?</h4>
+        <p>Estamos aquí para ayudarte.</p>
+        <a href="#" class="btn btn-primary" style="padding:10px 22px;font-size:13px;">Contactarnos <i class="fa-solid fa-arrow-right" style="margin-left:4px;font-size:11px;"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 VigilanTech. &nbsp;|&nbsp;
+      <a href="#">Aviso de privacidad</a>
+      <a href="#">Términos y condiciones</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ===== ACORDEÓN FAQ ===== */
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

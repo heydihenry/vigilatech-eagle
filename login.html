@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VigilanTech - Iniciar sesión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  /* ===== RESET Y VARIABLES ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --color-primary: #1e3a8a;
+    --color-primary-dark: #172554;
+    --color-accent: #2563eb;
+    --color-accent-light: #3b82f6;
+    --color-text: #1f2937;
+    --color-text-light: #6b7280;
+    --color-bg: #ffffff;
+    --color-bg-alt: #f9fafb;
+    --color-border: #e5e7eb;
+    --color-dark: #0f172a;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg-alt);
+    line-height: 1.6;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ===== LAYOUT DE AUTENTICACIÓN ===== */
+  .auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background: linear-gradient(135deg, #eff6ff 0%, #f9fafb 50%, #e0e7ff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Decoración de fondo */
+  .auth-wrapper::before,
+  .auth-wrapper::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: 0;
+  }
+  .auth-wrapper::before {
+    width: 400px; height: 400px;
+    background: var(--color-accent-light);
+    top: -150px; left: -150px;
+  }
+  .auth-wrapper::after {
+    width: 500px; height: 500px;
+    background: #6366f1;
+    bottom: -200px; right: -150px;
+  }
+
+  .auth-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    padding: 44px 40px;
+  }
+
+  /* Logo */
+  .auth-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 28px;
+  }
+  .auth-logo i { color: var(--color-accent); font-size: 24px; }
+  .auth-logo span { color: var(--color-text); font-weight: 400; font-size: 13px; }
+
+  /* Título */
+  .auth-title {
+    font-size: 26px;
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .auth-subtitle {
+    font-size: 14px;
+    color: var(--color-text-light);
+    text-align: center;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  /* Formulario */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: var(--color-text);
+  }
+  .form-group .input-wrapper {
+    position: relative;
+  }
+  .form-group .input-wrapper i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-light);
+    font-size: 14px;
+    pointer-events: none;
+    transition: color 0.2s;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 13px 14px 13px 42px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--color-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-group input::placeholder { color: #9ca3af; }
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+  }
+  .form-group .input-wrapper:focus-within i {
+    color: var(--color-accent);
+  }
+
+  /* Fila opciones: recordar / olvidó */
+  .auth-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-light);
+    cursor: pointer;
+    user-select: none;
+  }
+  .remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+  .forgot-link {
+    color: var(--color-accent);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .forgot-link:hover { color: var(--color-primary); text-decoration: underline; }
+
+  /* Botón principal */
+  .btn {
+    display: inline-block;
+    padding: 13px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .btn-primary { background: var(--color-accent); color: #fff; }
+  .btn-primary:hover { background: var(--color-primary); }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .auth-form .btn {
+    margin-top: 6px;
+    width: 100%;
+    padding: 14px 28px;
+    font-size: 14.5px;
+  }
+
+  /* Enlace secundario / registro */
+  .auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13.5px;
+    color: var(--color-text-light);
+  }
+  .auth-footer a {
+    color: var(--color-accent);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .auth-footer a:hover { color: var(--color-primary); text-decoration: underline; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .auth-card { padding: 32px 24px; }
+    .auth-title { font-size: 22px; }
+    .auth-wrapper { padding: 24px 16px; }
+    .auth-options { font-size: 12.5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SECCIÓN INICIAR SESIÓN ===== -->
+<main class="auth-wrapper">
+  <div class="auth-card">
+
+    <!-- Logo -->
+    <a href="#" class="auth-logo" aria-label="VigilanTech inicio">
+      <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+      <span>VigilanTech</span>
+    </a>
+
+    <!-- Título y subtítulo -->
+    <h1 class="auth-title">Iniciar sesión</h1>
+    <p class="auth-subtitle">Lorem ipsum ie kitur odif lorem ipsumdkd</p>
+
+    <!-- Formulario -->
+    <form class="auth-form" aria-label="Formulario de inicio de sesión">
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <div class="input-wrapper">
+          <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email" required>
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <div class="input-wrapper">
+          <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <!-- Opciones: recordar y olvidó contraseña -->
+      <div class="auth-options">
+        <label class="remember-me">
+          <input type="checkbox" name="remember" id="remember">
+          Recordar contraseña
+        </label>
+        <a href="#" class="forgot-link">¿Se te olvidó la contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+
+    <!-- Enlace secundario -->
+    <p class="auth-footer">
+      ¿No tienes cuenta? <a href="#">Crear cuenta</a>
+    </p>
+
+  </div>
+</main>
+
+</body>
+</html>

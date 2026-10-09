@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VigilanTech - Servicios de seguridad electrónica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  /* ===== RESET Y VARIABLES ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --color-primary: #1e3a8a;
+    --color-primary-dark: #172554;
+    --color-accent: #2563eb;
+    --color-accent-light: #3b82f6;
+    --color-blue-section: #2563eb;
+    --color-text: #1f2937;
+    --color-text-light: #6b7280;
+    --color-bg: #ffffff;
+    --color-bg-alt: #f9fafb;
+    --color-border: #e5e7eb;
+    --color-dark: #0f172a;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  button { font-family: inherit; cursor: pointer; border: none; }
+
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+  .btn-primary { background: var(--color-accent); color: #fff; }
+  .btn-primary:hover { background: var(--color-primary); }
+  .btn-dark { background: #111827; color: #fff; }
+  .btn-dark:hover { background: #000; }
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.6);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+  .btn-white { background: #fff; color: var(--color-accent); }
+  .btn-white:hover { background: #f1f5f9; }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--color-text-light);
+    max-width: 640px;
+    margin: 0 auto 48px;
+    font-size: 15px;
+  }
+
+  /* ===== TOP BAR (CONTACTO) ===== */
+  .topbar {
+    background: var(--color-dark);
+    color: #cbd5e1;
+    font-size: 12.5px;
+    padding: 8px 0;
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .topbar-contact {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .topbar-contact li { display: flex; align-items: center; gap: 6px; }
+  .topbar-contact i { color: var(--color-accent-light); }
+  .topbar-social { display: flex; gap: 12px; }
+  .topbar-social a { color: #94a3b8; transition: color 0.2s; }
+  .topbar-social a:hover { color: #fff; }
+
+  /* ===== HEADER / NAVBAR ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--color-primary);
+  }
+  .logo i { color: var(--color-accent); font-size: 22px; }
+  .logo span { color: var(--color-text); font-weight: 400; font-size: 13px; }
+
+  .nav { display: flex; align-items: center; gap: 32px; }
+  .nav a {
+    font-size: 14px;
+    color: var(--color-text-light);
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav a:hover, .nav a.active { color: var(--color-accent); }
+  .nav a.active { font-weight: 600; }
+  .nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0; right: 0;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 2px;
+  }
+
+  .nav-actions { display: flex; align-items: center; gap: 16px; }
+
+  /* ===== HERO (SECCIÓN PRINCIPAL SERVICIOS) ===== */
+  .hero-services {
+    background: var(--color-bg-alt);
+    padding: 0;
+    overflow: hidden;
+  }
+  .hero-services-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+  }
+  .hero-services-image {
+    position: relative;
+    overflow: hidden;
+    background: #e5e7eb;
+  }
+  .hero-services-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 520px;
+  }
+  .hero-services-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 56px;
+    background: #fff;
+  }
+  .hero-services-content h1 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 22px;
+    color: var(--color-text);
+  }
+  .hero-services-content p {
+    font-size: 16px;
+    color: var(--color-text-light);
+    margin-bottom: 32px;
+    max-width: 480px;
+    line-height: 1.65;
+  }
+
+  /* ===== SECCIÓN SOLUCIONES DISEÑADAS POR INGENIEROS ===== */
+  .engineering {
+    padding: 80px 0;
+    background: #fff;
+  }
+  .engineering-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .engineering-content h2 {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    color: var(--color-text);
+  }
+  .engineering-content p {
+    font-size: 15px;
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .engineering-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .engineering-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  /* ===== SERVICIOS INSTALACIÓN (GRID 3x2) ===== */
+  .install-services {
+    padding: 80px 0;
+    background: var(--color-bg-alt);
+  }
+  .install-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .install-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .install-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .install-card .card-img {
+    height: 160px;
+    overflow: hidden;
+    background: #e5e7eb;
+  }
+  .install-card .card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .install-card .card-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .install-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .install-card p {
+    font-size: 13px;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .install-card .btn { align-self: flex-start; padding: 10px 22px; font-size: 13px; }
+
+  /* ===== SERVICIO MÁS SOLICITADO ===== */
+  .top-service {
+    padding: 80px 0;
+    background: #fff;
+  }
+  .top-service-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .top-service-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .top-service-image img {
+    width: 100%;
+    height: 460px;
+    object-fit: cover;
+  }
+  .top-service-content .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 12px;
+  }
+  .top-service-content h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .top-service-content > p {
+    font-size: 15px;
+    color: var(--color-text-light);
+    margin-bottom: 24px;
+    line-height: 1.65;
+  }
+  .top-service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .top-service-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .top-service-list li i {
+    width: 20px; height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-size: 14px;
+  }
+
+  /* ===== ¿NO SABES QUÉ NECESITAS? ===== */
+  .need-help {
+    padding: 80px 0;
+    background: var(--color-bg-alt);
+  }
+  .need-help-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .need-help-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .need-help-image img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+  }
+  .need-help-content h2 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+  .need-help-content > p {
+    font-size: 15px;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+    line-height: 1.65;
+  }
+  .need-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-bottom: 30px;
+  }
+  .need-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .need-step .step-num {
+    flex-shrink: 0;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .need-step h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .need-step p {
+    font-size: 13px;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+
+  /* ===== BLOG ===== */
+  .blog {
+    padding: 80px 0;
+    background: #fff;
+  }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .blog-featured {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-featured .blog-img { height: 280px; overflow: hidden; background: #e5e7eb; }
+  .blog-featured .blog-img img { width: 100%; height: 100%; object-fit: cover; }
+  .blog-featured .blog-body { padding: 26px; }
+  .blog-meta {
+    font-size: 11px;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+  }
+  .blog-featured h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .blog-featured p {
+    font-size: 13.5px;
+    color: var(--color-text-light);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .read-more {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s, color 0.2s;
+  }
+  .read-more:hover { gap: 12px; color: var(--color-accent); }
+
+  .blog-side { display: flex; flex-direction: column; gap: 24px; }
+  .blog-mini {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    flex: 1;
+  }
+  .blog-mini .blog-img { overflow: hidden; background: #e5e7eb; }
+  .blog-mini .blog-img img { width: 100%; height: 100%; object-fit: cover; }
+  .blog-mini .blog-body { padding: 22px; }
+  .blog-mini h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+  .blog-mini p {
+    font-size: 12.5px;
+    color: var(--color-text-light);
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+  .blog-mini .read-more { font-size: 12.5px; }
+
+  /* ===== PREGUNTAS FRECUENTES ===== */
+  .faq {
+    padding: 80px 0;
+    background: var(--color-bg-alt);
+  }
+  .faq-list {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .faq-question:hover { background: #f8fafc; }
+  .faq-question .icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--color-bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--color-accent);
+    transition: transform 0.3s, background 0.2s;
+  }
+  .faq-item.open .faq-question .icon {
+    transform: rotate(45deg);
+    background: var(--color-accent);
+    color: #fff;
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .faq-item.open .faq-answer { max-height: 300px; }
+  .faq-answer p {
+    padding: 0 24px 22px;
+    font-size: 13.5px;
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+
+  /* ===== CTA FINAL ===== */
+  .cta-final {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #fff;
+    padding: 70px 0;
+    text-align: center;
+  }
+  .cta-final h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .cta-final p {
+    opacity: 0.9;
+    margin-bottom: 28px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--color-dark);
+    color: #cbd5e1;
+    padding: 60px 0 0;
+    font-size: 13px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr) 1.2fr;
+    gap: 32px;
+    padding-bottom: 40px;
+  }
+  .footer-brand .logo { color: #fff; margin-bottom: 14px; }
+  .footer-brand .logo i { color: var(--color-accent-light); }
+  .footer-brand p { font-size: 12.5px; line-height: 1.6; margin-bottom: 16px; opacity: 0.8; }
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a {
+    width: 34px; height: 34px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    transition: background 0.2s;
+  }
+  .footer-social a:hover { background: var(--color-accent); color: #fff; }
+
+  .footer-col h4 {
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { display: flex; flex-direction: column; gap: 9px; }
+  .footer-col a {
+    font-size: 12.5px;
+    color: #94a3b8;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-col p { font-size: 12.5px; color: #94a3b8; margin-bottom: 14px; line-height: 1.55; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+  }
+  .footer-bottom a { color: #94a3b8; margin: 0 4px; }
+  .footer-bottom a:hover { color: #fff; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .install-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .nav { display: none; }
+    .topbar-inner { justify-content: center; }
+    .hero-services-inner { grid-template-columns: 1fr; }
+    .hero-services-image img { min-height: 300px; height: 300px; }
+    .hero-services-content { padding: 40px 24px; }
+    .hero-services-content h1 { font-size: 28px; }
+    .engineering-inner { grid-template-columns: 1fr; gap: 32px; }
+    .engineering-content h2 { font-size: 24px; }
+    .engineering-image img { height: 260px; }
+    .top-service-inner { grid-template-columns: 1fr; gap: 32px; }
+    .top-service-image img { height: 280px; }
+    .top-service-content h2 { font-size: 24px; }
+    .need-help-inner { grid-template-columns: 1fr; gap: 32px; }
+    .need-help-image img { height: 280px; }
+    .need-help-content h2 { font-size: 24px; }
+    .install-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-mini { grid-template-columns: 140px 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-title { font-size: 22px; }
+    .cta-final h2 { font-size: 22px; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .blog-mini { grid-template-columns: 1fr; }
+    .blog-mini .blog-img { height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR (CONTACTO) ===== -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <ul class="topbar-contact">
+      <li><i class="fa-solid fa-phone" aria-hidden="true"></i> +534567888</li>
+      <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> ejemplo@correo.com</li>
+    </ul>
+    <div class="topbar-social" aria-label="Redes sociales">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER / NAVBAR ===== -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo" aria-label="VigilanTech inicio">
+      <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+      <span>VigilanTech</span>
+    </a>
+
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#">Inicio</a>
+      <a href="#" class="active">Servicios</a>
+      <a href="#">Contacto</a>
+      <a href="#">Sobre nosotros</a>
+      <a href="#">Blog</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="#" class="btn btn-primary">Crear mi cuenta</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== SECCIÓN HERO SERVICIOS ===== -->
+<section class="hero-services" aria-labelledby="hero-services-title">
+  <div class="hero-services-inner">
+    <div class="hero-services-image">
+      <!-- Placeholder: reemplazar con imagen real del hero de servicios -->
+      <img src="https://placehold.co/800x600?text=Hero+Servicios" alt="Sistema de seguridad electrónica instalado en una empresa">
+    </div>
+    <div class="hero-services-content">
+      <h1 id="hero-services-title">Servicios de seguridad electrónica para empresas y negocios</h1>
+      <p>Diseñamos, instalamos y mantenemos sistemas de videovigilancia, control de acceso y redes, con proyectos técnicos personalizados y garantía profesional.</p>
+      <a href="#" class="btn btn-dark">Solicitar diagnóstico técnico</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN SOLUCIONES DISEÑADAS POR INGENIEROS ===== -->
+<section class="engineering" aria-labelledby="engineering-title">
+  <div class="container engineering-inner">
+    <div class="engineering-content">
+      <h2 id="engineering-title">Soluciones diseñadas por ingenieros, no instalaciones improvisadas</h2>
+      <p>En VigilanTech no vendemos cámaras por vender. Estudiamos su inmueble, analizamos sus necesidades y diseñamos un proyecto técnico para que invierta únicamente en lo que realmente necesita.</p>
+      <p>Nuestro servicio está diseñado para empresas y negocios, oficinas, clínicas, hoteles, almacenes y propietarios que valoran la calidad, la garantía y el soporte posterior.</p>
+    </div>
+    <div class="engineering-image">
+      <!-- Placeholder: reemplazar con imagen real de ingeniería -->
+      <img src="https://placehold.co/600x500?text=Ingeniería+aplicada" alt="Ingenieros diseñando un proyecto de seguridad">
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN SERVICIOS INSTALACIÓN (GRID 3x2) ===== -->
+<section class="install-services" aria-labelledby="install-title">
+  <div class="container">
+    <h2 id="install-title" class="section-title">Instalación y configuración de sistemas de seguridad</h2>
+    <p class="section-subtitle">Instalamos y configuramos cada equipo bajo criterios de ingeniería, asegurando que todo el sistema funcione de forma integrada y confiable.</p>
+
+    <div class="install-grid">
+      <!-- Fila 1 -->
+      <article class="install-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Cámaras+IP" alt="Cámaras de seguridad IP y analógicas">
+        </div>
+        <div class="card-body">
+          <h3>Cámaras de seguridad IP y analógicas</h3>
+          <p>Vigilancia en tiempo real con grabación local y monitoreo remoto desde su móvil o PC.</p>
+          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+        </div>
+      </article>
+
+      <article class="install-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=DVR+/+NVR" alt="Configuración de DVR y NVR">
+        </div>
+        <div class="card-body">
+          <h3>DVR / NVR</h3>
+          <p>Configuración de grabadores digitales y de red para almacenar y gestionar sus grabaciones.</p>
+          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+        </div>
+      </article>
+
+      <article class="install-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Videoporteros" alt="Videoporteros inteligentes">
+        </div>
+        <div class="card-body">
+          <h3>Videoporteros inteligentes</h3>
+          <p>Sistemas de video y audio bidireccional para controlar el acceso a su negocio o residencia.</p>
+          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+        </div>
+      </article>
+
+      <!-- Fila 2 -->
+      <article class="install-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Control+de+acceso" alt="Sistemas de control de acceso">
+        </div>
+        <div class="card-body">
+          <h3>Control de acceso</h3>
+          <p>Gestión de entradas y salidas para empleados, visitantes y áreas restringidas.</p>
+          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+        </div>
+      </article>
+
+      <article class="install-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Configuración+remota" alt="Configuración remota de sistemas">
+        </div>
+        <div class="card-body">
+          <h3>Configuración remota</h3>
+          <p>Acceso seguro a sus cámaras y sistemas desde cualquier lugar del mundo.</p>
+          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+        </div>
+      </article>
+
+      <article class="install-card">
+        <div class="card-img">
+          <img src="https://placehold.co/400x300?text=Mantenimiento+y+soporte" alt="Mantenimiento y soporte técnico">
+        </div>
+        <div class="card-body">
+          <h3>Mantenimiento y soporte</h3>
+          <p>Seguimos a tu lado después de la instalación para que su sistema funcione correctamente.</p>
+          <a href="#" class="btn btn-dark">Solicitar instalación</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN SERVICIO MÁS SOLICITADO ===== -->
+<section class="top-service" aria-labelledby="top-service-title">
+  <div class="container top-service-inner">
+    <div class="top-service-image">
+      <!-- Placeholder: reemplazar con imagen real de cámaras de seguridad -->
+      <img src="https://placehold.co/600x600?text=Cámaras+de+seguridad" alt="Cámaras de seguridad instaladas en un negocio">
+    </div>
+    <div class="top-service-content">
+      <span class="badge">Servicio más solicitado</span>
+      <h2 id="top-service-title">Cámaras de seguridad</h2>
+      <p>Protege tu empresa y mantén todo bajo control, incluso cuando estás fuera.</p>
+
+      <ul class="top-service-list">
+        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Instalación profesional</li>
+        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Configuración personalizada</li>
+        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Acceso desde tu dispositivo</li>
+        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Soporte técnico</li>
+      </ul>
+
+      <a href="#" class="btn btn-dark">Solicitar instalación</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN ¿NO SABES QUÉ NECESITAS? ===== -->
+<section class="need-help" aria-labelledby="need-help-title">
+  <div class="container need-help-inner">
+    <div class="need-help-image">
+      <!-- Placeholder: reemplazar con imagen real de asesoría -->
+      <img src="https://placehold.co/600x600?text=Asesoría+personalizada" alt="Asesoría para elegir el sistema de seguridad adecuado">
+    </div>
+    <div class="need-help-content">
+      <h2 id="need-help-title">¿No sabes que necesitas?</h2>
+      <p>Te ayudamos a encontrar la solución adecuada.</p>
+
+      <div class="need-steps">
+        <div class="need-step">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Elige el servicio que necesitas</h4>
+            <p>Selecciona el tipo de solución que buscas: cámaras, alarmas, sensores u otros dispositivos.</p>
+          </div>
+        </div>
+        <div class="need-step">
+          <div class="step-num">2</div>
+          <div>
+            <h4>Cuéntanos sobre tu hogar</h4>
+            <p>Indica los detalles de tu espacio, necesidades y cualquier requerimiento especial.</p>
+          </div>
+        </div>
+        <div class="need-step">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Revisa y envía tu solicitud</h4>
+            <p>Verifica que tus datos sean correctos y envía la solicitud para que podamos contactarte.</p>
+          </div>
+        </div>
+        <div class="need-step">
+          <div class="step-num">4</div>
+          <div>
+            <h4>Recibe tu propuesta personalizada</h4>
+            <p>Analizaremos tu solicitud, prepararemos un presupuesto y, si estás de acuerdo, coordinamos la instalación.</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="btn btn-dark">Solicitar evaluación</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN BLOG ===== -->
+<section class="blog" aria-labelledby="blog-title">
+  <div class="container">
+    <h2 id="blog-title" class="section-title">Ideas para un hogar más seguro</h2>
+    <p class="section-subtitle">Consejos, recomendaciones y novedades para ayudarte a proteger tu hogar y aprovechar al máximo la tecnología de seguridad.</p>
+
+    <div class="blog-grid">
+      <!-- Artículo destacado -->
+      <article class="blog-featured">
+        <div class="blog-img">
+          <img src="https://placehold.co/700x400?text=¿Qué+sistema+necesita+tu+hogar?" alt="Qué sistema de seguridad necesita realmente tu hogar">
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span>Guía</span>
+            <span>5 minutos</span>
+          </div>
+          <h3>¿Qué sistema de seguridad necesita realmente tu hogar?</h3>
+          <p>Cámaras, sensores, alarmas... descubre qué dispositivos pueden ayudarte a crear una solución de seguridad adaptada a las características de tu hogar.</p>
+          <a href="#" class="read-more">Leer artículo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </article>
+
+      <!-- Artículos secundarios -->
+      <div class="blog-side">
+        <article class="blog-mini">
+          <div class="blog-img">
+            <img src="https://placehold.co/300x300?text=5+lugares+estratégicos" alt="5 lugares estratégicos para instalar cámaras">
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span>Guía</span>
+              <span>2 minutos</span>
+            </div>
+            <h4>5 lugares estratégicos para instalar cámaras de seguridad</h4>
+            <p>Descubre dónde colocar tus cámaras para obtener una mejor cobertura y evitar puntos ciegos en tu hogar.</p>
+            <a href="#" class="read-more">Leer artículo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </article>
+
+        <article class="blog-mini">
+          <div class="blog-img">
+            <img src="https://placehold.co/300x300?text=Casa+inteligente" alt="Qué puedes hacer con una casa inteligente">
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span>Guía</span>
+              <span>3 minutos</span>
+            </div>
+            <h4>¿Qué puedes hacer con una casa inteligente?</h4>
+            <p>Conoce cómo cámaras, sensores y otros dispositivos pueden trabajar juntos para hacer tu hogar más seguro y cómodo.</p>
+            <a href="#" class="read-more">Leer artículo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN PREGUNTAS FRECUENTES ===== -->
+<section class="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <h2 id="faq-title" class="section-title">Preguntas frecuentes</h2>
+    <p class="section-subtitle">Diseñamos soluciones personalizadas para proteger tus espacios con tecnología confiable y un servicio profesional.</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿La instalación está incluida en el servicio?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Cada hogar tiene necesidades diferentes. Podemos evaluar tu espacio y recomendarte una combinación de cámaras, alarmas, sensores y otros dispositivos según lo que quieras proteger.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Puedo controlar las cámaras desde mi teléfono?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Sí. Configuramos el acceso remoto para que puedas ver tus cámaras en tiempo real desde tu móvil o PC, estés donde estés.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Cuánto tiempo tarda la instalación?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Depende del tamaño del proyecto y la cantidad de equipos. Tras el diagnóstico técnico te daremos un tiempo estimado claro y sin sorpresas.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          ¿Qué servicio de seguridad necesita mi hogar?
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>Cada espacio es distinto. Analizamos tus necesidades y te proponemos la solución más adecuada: cámaras, alarmas, sensores o una combinación de ellos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECCIÓN CTA FINAL ===== -->
+<section class="cta-final" aria-labelledby="cta-title">
+  <div class="container">
+    <h2 id="cta-title">La tranquilidad de tu hogar comienza con un primer paso</h2>
+    <p>Cuéntanos qué necesitas y te ayudaremos a encontrar la solución de seguridad adecuada para tu hogar.</p>
+    <a href="#" class="btn btn-dark">Quiero proteger mi hogar</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Marca -->
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <span>VigilanTech</span>
+        </a>
+        <p>Seguridad inteligente para tu hogar, instalada por profesionales.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Servicios -->
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#">Instalación de videocámaras</a></li>
+          <li><a href="#">Sistemas de alarma</a></li>
+          <li><a href="#">Sensores inteligentes</a></li>
+          <li><a href="#">Control de acceso</a></li>
+          <li><a href="#">Configuración de dispositivos</a></li>
+          <li><a href="#">Mantenimiento y soporte</a></li>
+        </ul>
+      </div>
+
+      <!-- Temas más destacados -->
+      <div class="footer-col">
+        <h4>Temas más destacados</h4>
+        <ul>
+          <li><a href="#">Sobre nosotros</a></li>
+          <li><a href="#">Cómo funciona</a></li>
+          <li><a href="#">Evaluación de seguridad</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Necesitas ayuda -->
+      <div class="footer-col">
+        <h4>¿Necesitas ayuda?</h4>
+        <ul>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Soporte técnico</a></li>
+          <li><a href="#">Solicitar evaluación</a></li>
+        </ul>
+      </div>
+
+      <!-- Tienes duda -->
+      <div class="footer-col">
+        <h4>¿Tienes duda?</h4>
+        <p>Estamos aquí para ayudarte.</p>
+        <a href="#" class="btn btn-primary" style="padding:10px 22px;font-size:13px;">Contactarnos <i class="fa-solid fa-arrow-right" style="margin-left:4px;font-size:11px;"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 VigilanTech. &nbsp;|&nbsp;
+      <a href="#">Aviso de privacidad</a>
+      <a href="#">Términos y condiciones</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JS ACORDEÓN FAQ ===== -->
+<script>
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      // Cerrar todos
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      // Abrir el actual si estaba cerrado
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
